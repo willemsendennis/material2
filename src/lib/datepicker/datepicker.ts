@@ -27,10 +27,6 @@ import {MdDatepickerInput} from './datepicker-input';
 import {CalendarLocale} from '../core/datetime/calendar-locale';
 
 
-/** Used to generate a unique ID for each datepicker instance. */
-let datepickerUid = 0;
-
-
 /** Component responsible for managing the datepicker popup/dialog. */
 @Component({
   moduleId: module.id,
@@ -65,10 +61,6 @@ export class MdDatepicker implements OnDestroy {
   touchUi = false;
 
   @Output() selectedChanged = new EventEmitter<SimpleDate>();
-
-  opened = false;
-
-  id = `md-datepicker-${datepickerUid++}`;
 
   get _selected(): SimpleDate {
     return this._datepickerInput ? this._datepickerInput.value : null;
@@ -120,9 +112,6 @@ export class MdDatepicker implements OnDestroy {
    * @param touchUi Whether to use the touch UI.
    */
   open(): void {
-    if (this.opened) {
-      return;
-    }
     if (!this._datepickerInput) {
       throw new MdError('Attempted to open an MdDatepicker with no associated input.');
     }
@@ -132,14 +121,10 @@ export class MdDatepicker implements OnDestroy {
     }
 
     this.touchUi ? this._openAsDialog() : this._openAsPopup();
-    this.opened = true;
   }
 
   /** Close the calendar. */
   close(): void {
-    if (!this.opened) {
-      return;
-    }
     if (this._popupRef && this._popupRef.hasAttached()) {
       this._popupRef.detach();
     }
@@ -150,7 +135,6 @@ export class MdDatepicker implements OnDestroy {
     if (this._calendarPortal && this._calendarPortal.isAttached) {
       this._calendarPortal.detach();
     }
-    this.opened = false;
   }
 
   /** Open the calendar as a dialog. */
