@@ -40,7 +40,6 @@ export class DemoApp {
     {name: 'Card', route: 'card'},
     {name: 'Chips', route: 'chips'},
     {name: 'Checkbox', route: 'checkbox'},
-    {name: 'Data Table', route: 'data-table'},
     {name: 'Datepicker', route: 'datepicker'},
     {name: 'Dialog', route: 'dialog'},
     {name: 'Gestures', route: 'gestures'},
